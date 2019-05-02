@@ -1,0 +1,17 @@
+<%= render 'users/sidebar', users:@users %>
+
+<h1>All users</h1>
+ 
+<table frame="below" rules="rows">
+  <tr >
+  <th  width="200px"><font size=+2>image</font</th>
+  <th  width="100px"><font size=+2>Name</font></th>
+  </tr>
+  <% @users.each do |user| %>
+  <tr　height="60px">
+  <th width="300px" height="60px"><%= attachment_image_tag user, :profile_image , size: '70x70',fallback:"no_image.jpg"%></th>
+    <th width="400px"><%= user.username %></th>
+    <th><%= link_to "show", user_path(user) %></br></th>
+  </tr>
+<% end %>
+  

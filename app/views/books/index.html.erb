@@ -1,0 +1,28 @@
+<% if flash[:success] %>
+  <p ><font color="green"><%= flash[:success] %></font></p>
+<% end %>
+
+
+     <%= render 'books/sidebar', books:@books, user:@user, book:@book %>
+
+     
+     <h1>Books</h1>
+     
+     <table frame="below" rules="rows">
+     <tr>
+            <th  width="200px"></th>
+            <th  width="300px"><font size=+2>Title</font></th>
+            <th  width="300px"><font size=+2>Body</font></th>
+        </tr>
+        
+        <% @books.each do |book| %>
+        <tr> 
+            <th width="200px" height="60px"><%= attachment_image_tag book.user, :profile_image , size: '70x70',fallback:"no_image.jpg"%>
+            <th width="100px" height="60px"><%= link_to book_path(book.id) do %><%= book.book_title %></th><% end %>
+            <th width="300px"><%= book.book_body %></th>    
+        </tr>
+        <% end %>
+        
+    </table>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="container"> 
+    <div class="row"> 
+        <div class="col-lg-3" > 
+             
+    <h2>user info</h2>
+
+    <div width="200px" height="60px"><%= attachment_image_tag @user, :profile_image , size: '80x80',fallback:"no_image.jpg"%></div>
+    
+
+    <table frame="abobe" rules="rows">
+       
+    <table>
+        <tr>
+            <th width="100px" height="40px">name:</th>
+            <th><%= current_user.username %></th>
+        </tr>
+        <tr>
+            <th height="40px">introduction:</th>
+            <th><%= current_user.introduction %></th>
+        </tr>
+
+    </table>
+       
+        <%= link_to edit_user_path(current_user.id) do %><i class="col-xs-7 btn btn-default glyphicon glyphicon-wrench"></i><% end %>
+
+        </br>
+        
+        <h3>NewBook</h3>
+    <% form_for(@book) do |f| %>
+        <% if @user.errors.any? %>
+        <div id="error_explanation" class="alert alert-danger">
+            <ul>
+            <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+        <% end %>
+            </ul>
+        </div>
+    <% end %>
+        <h5>title</h5>
+        <%= f.text_field :book_title %></br>
+        <h5>opinion</h5>
+        <%= f.text_area :book_body %></br>
+        <%= f.submit %>
+    <% end %>
+        </div>
+        <div class="col-lg-9" >

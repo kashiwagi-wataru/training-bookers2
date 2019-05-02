@@ -1,0 +1,90 @@
+<% if flash[:success] %>
+  <p><font color="green"><%= flash[:success] %></p></font>
+<% end %>
+<div class="container"> 
+    <div class="row"> 
+        <div class="col-lg-3" > 
+             
+    <h2>user info</h2>
+
+    <div width="200px" height="60px"><%= attachment_image_tag current_user, :profile_image , size: '80x80',fallback:"no_image.jpg"%></div>
+    
+
+    <table frame="abobe" rules="rows">
+       
+    <table>
+        <tr>
+            <th width="100px" height="40px">name:</th>
+            <th><%= current_user.username %></th>
+        </tr>
+        <tr>
+            <th height="40px">introduction:</th>
+            <th><%= current_user.introduction %></th>
+        </tr>
+
+    </table>
+
+    <%= link_to edit_user_path(current_user.id) do %><i class="col-xs-7 btn btn-default glyphicon glyphicon-wrench"></i><% end %>
+</br>
+    </table>
+        <h3>NewBook</h3>
+    <%= form_for(@book2) do |f| %>
+
+        <% if @book2.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= @book2.errors.count %>件のエラーが発生しました。</h2>
+            <ul>
+                <% @book2.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+        <% end %>
+        <h5>title</h5>
+        <%= f.text_field :book_title %></br>
+        <h5>opinion</h5>
+        <%= f.text_area :book_body %></br>
+        <%= f.submit %>
+    <% end %>
+        </div>
+        <div class="col-lg-9" >
+
+<h1>Book Datail</h1>
+<table frame="below" rules="rows">
+  <tr>
+       <th  width="200px"></th>
+       <th  width="300px"><font size=+2>Title</font></th>
+       <th  width="300px"><font size=+2>Body</font></th>
+  </tr>
+
+   <tr>
+    <th width="300px"><%= attachment_image_tag @book.user, :profile_image , size: '70x70',fallback:"no_image.jpg"%>
+    <%= link_to user_path(@book.user_id) do %><%= @book.user.username %><% end %></th>
+    <th width="200px" height="60px"><%= @book.book_title %></th>
+    <th width="100px" height="60px"> <%= @book.book_body %></th>
+
+    <i class="fa fa-comment"></i>
+    <a href="#comments"></a>
+   
+    <% if @book.user == current_user %>
+      <th width="40px"><%= link_to "削除", book_path(@book), method: :delete ,data:{confirm: 'Are you sure?'}%></th>
+      <th width="40px"><%= link_to "編集", edit_book_path(@book) %></th>
+    <%end%>
+
+    <%= form_for [@book,@post_comment] do |f| %>
+        <%= f.text_area :comment %>
+        <%= f.submit "send"%>
+    <i class="fa fa-comments"></i>
+    <% end %>
+    
+    <% @book.post_comments.each do |post_comment| %>
+        <%= post_comment.user.name %>
+        <%= post_comment.created_at.strftime('%y/%m/%d')%>
+    <% end %>
+
+    
+  </tr>    
+    </li>
+</ul>
+   
+</div>

@@ -1,0 +1,23 @@
+
+<% if @user.errors.any? %>
+<h2>error</h2>
+  <%= @user.errors.count %>件のエラーが発生しました
+  <% @user.errors.full_messages.each do |message| %>
+      <%= message %>
+  <% end %>
+<% end %>
+
+
+
+<h1>User info</h1>
+<%= form_for(@user) do |f| %>
+        <h3>name</h3>
+        <%= f.text_field :username, class:"username", placeholder:"名前"%>
+        </br>
+        <h3>introduction</h3>
+        <%= f.text_area :introduction, class:"introduction", placeholder:"自己紹介"%>
+        <h3>image</h3>
+        <%= f.attachment_field :profile_image, placeholder: "プロフィール画像", class: "user-edit-form" %>
+
+    <%= f.submit "Update User"%>
+<% end %>
